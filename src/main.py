@@ -1,3 +1,5 @@
+import numpy as np
+
 import cv2
 
 import mediapipe.python.solutions.hands as mp_hands
@@ -7,7 +9,7 @@ import mediapipe.python.solutions.drawing_styles as mp_drawing_styles
 # For webcam input:
 cap = cv2.VideoCapture(0)
 with mp_hands.Hands(
-    model_complexity=1, min_detection_confidence=0.5, min_tracking_confidence=0.25
+    model_complexity=0, min_detection_confidence=0.5, min_tracking_confidence=0.25
 ) as hands:
     while cap.isOpened():
         success, image = cap.read()
@@ -34,6 +36,9 @@ with mp_hands.Hands(
                     mp_drawing_styles.get_default_hand_landmarks_style(),
                     mp_drawing_styles.get_default_hand_connections_style(),
                 )
+
+                landmark_coords = np.array([[l.x, l.y, l.z] for l in hand_landmarks.landmark])
+                print(landmark_coords.shape)
 
         # Flip the image horizontally for a selfie-view display.
         cv2.imshow("MediaPipe Hands", cv2.flip(image, 1))
