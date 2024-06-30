@@ -38,7 +38,6 @@ with mp_hands.Hands(
                 )
 
                 landmark_coords = np.array([[l.x, l.y, l.z] for l in hand_landmarks.landmark])
-                print(landmark_coords.shape)
 
         # Flip the image horizontally for a selfie-view display.
         cv2.imshow("MediaPipe Hands", cv2.flip(image, 1))
